@@ -12,5 +12,5 @@ The overall goals of this project are to:
 ## Current Authors
 
 * Gregory James Smith: www.gregoryjsmith.org
-# Simon A.F. Darroch: https://www.vanderbilt.edu/ees/people/faculty/SimonDarroch.php
+* Simon A.F. Darroch: https://www.vanderbilt.edu/ees/people/faculty/SimonDarroch.php
 
