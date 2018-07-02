@@ -1,0 +1,54 @@
+---
+title: "Rcl Calculation"
+author: "Gregory Smith"
+date: "March 26, 2018"
+output: html_document
+---
+
+```{r setup, include=TRUE}
+#### Rcl Calculation Test ####
+x.clust <- matrix(c(rep(0,61),1,1,rep(0,6),1,0,1,rep(0,6),1,1,0),9,9) #the clustered example matrix
+x.rando <- matrix(c(rep(0,4),1,rep(0,3),1,rep(0,27),1,rep(0,7),1,rep(0,27),1,rep(0,3),1,rep(0,4)),9,9) #the random example matrix
+w <- matrix(c(0,1,1,rep(0,6),1,0,1,rep(0,6),1,1,rep(0,11),1,1,rep(0,6),1,0,1,rep(0,6),1,1,rep(0,11),1,1,rep(0,6),1,0,1,rep(0,6),1,1,0),9,9) #Mtax
+
+normalize <- function(x){ #Function to normalize, needed for Rcl calculation
+  (x - mean(x))
+}
+
+clust.e <- normalize (x.clust)
+rando.e <- normalize (x.rando)
+
+normalize <- function(x){ #Function to normalize, needed for Rcl calculation
+  (x - mean(x))
+}
+
+Rcl.calc <- function(x,w){ #Function to Calculate relative clustering index; takes two matrices to calculate
+  
+  n <- nrow(x) #x is Mext or Morg
+  So <- sum(w) #w is Mtax
+  sigma <- c()
+  sig.z <- c() #set up a vector 
+  z <- normalize(x) #normalize Mext or Morg matrix
+  
+  for (i in 1:n){
+    
+    yi <- sum(z[i,]^2)
+    sig.z <- c(sig.z, yi)
+    
+    for (j in 1:n){
+      yj <- sum(z[i,]*z[,j]*w[i,j])
+      sigma <- c(sigma, yj)
+    }
+    
+    sum(sigma)
+    
+  }
+  
+  sum(sigma)/sum(sig.z) *(n/So) #compute Rcl
+  
+}
+
+Rcl.clustered <- Rcl.calc(clust.e,w)
+Rcl.random <- Rcl.calc(rando.e,w)
+
+```
